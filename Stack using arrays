@@ -1,0 +1,81 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class stack{
+public:
+	int *t, n, index;
+	stack(int _n);
+	~stack();
+	bool empty();
+	bool full();
+	void push(int element); 
+	int pop();
+};
+stack::stack(int _n){
+	n = _n;
+	t = new int[n];
+	index = 0;
+}
+stack::~stack(){
+	delete[]t;
+}
+bool stack::empty(){
+	if (index == 0)
+		return true;
+	else
+		return false;
+}
+bool stack::full(){
+	if (index == n)
+		return true;
+	else
+		return false;
+}
+void stack::push(int element){
+	t[index] = element;
+	index++;
+}
+
+
+int stack::pop(){
+	index--;
+	return t[index];
+}
+
+int main(){
+	int x, y, element;
+	cout << "Enter Stack Length: ";
+	cin >> x;
+	stack s(x);
+	while (1){
+		cout << "Enter 1 for push or 2 for pop or 3 to exit: ";
+		cin >> y;
+		if (y == 1){
+			if (s.full()){
+				cout << "Stack is full!!!" << endl;
+			}
+			else
+			{
+				cout << "Enter the element: ";
+				cin >> element;
+				s.push(element);
+			}
+		}
+			if (y == 2){
+				if (s.empty()){
+					cout << "stack is empty!!!" << endl;
+				}
+
+				else
+					cout << s.pop() << "!!" << endl;
+
+			}
+			if (y == 3){
+				break;
+			}
+		}
+	system("pause");
+		return 0;
+
+}

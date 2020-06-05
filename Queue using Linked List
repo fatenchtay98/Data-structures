@@ -1,0 +1,86 @@
+#include<iostream>
+using namespace std;
+
+class node {
+public:
+	int value;
+	node *next;
+};
+
+class queue {
+public:
+	int n = 0;
+	node *first, *last;
+	queue();
+	void enqueue(int element);
+	int dequeue();
+	bool empty();
+	bool search(int x);
+};
+
+queue::queue() {
+	n = 0;
+	first = NULL;
+	last = NULL;
+}
+
+bool queue::empty() {
+	if (n == 0)
+		return true;
+	return false;
+}
+void queue::enqueue(int element) {
+	node *t = new node;
+	(*t).value = e;
+	(*t).next = NULL;
+	if (empty()) {
+		last = t;
+		first = t;
+
+	}
+	else {
+		(*last).next = t;
+		last = t;
+	}
+	n++;
+}
+int queue::dequeue() {
+	int res;
+	node*temp = first;
+	res = (*first).value;
+	if (number == 1) {
+		first = last;
+		last = NULL;
+	}
+	else
+		first = (*first).next;
+	n--;
+	return res;
+}
+
+int main() {
+	int s, element, n;
+	queue t;
+	cout << "enter a number" << endl;
+	cout << "1 to enqueue value to queue" << endl;
+	cout << "2 to dequeue value from the queue" << endl;
+	cout << "-1 to end" << endl << endl;
+	cin >> n;
+	while (n != -1) {
+		if (n == 1) {
+			cout << "enter an element:" << endl;
+			cin >> element;
+			t.enqueue(element);
+		}
+		if (n == 2) {
+
+			if (t.empty() == false)
+				cout << t.dequeue() << endl;
+			else
+				cout << "queue is empty" << endl;
+
+		}
+		
+	system("pause");
+	return 0;
+}

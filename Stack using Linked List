@@ -1,0 +1,79 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+public:
+	int Val;
+	Node *next;
+};
+
+class Stack{
+public:
+	Node *s;
+	int n;
+	Stack();
+	bool empty();
+	void push(int element);
+	int pop();
+	void print();
+};
+
+Stack::Stack(){
+	s = NULL;
+	n = 0;
+}
+
+bool Stack::empty(){
+	if (n == 0)
+		return true;
+	return false;
+
+}
+
+void Stack::push(int element){
+	Node *x = new Node;
+	(*x).Val = element;
+	(*x).next = NULL;
+	if (empty())
+		s = x;
+	else {
+		(*x).next = s;
+		s = x;
+	}
+	n++;
+}
+int Stack::pop(){
+	Node*temp; int res;
+	temp = s;
+	res = (*temp).Val;
+	s = (*temp).next;
+	delete temp;
+	n--;
+	return res;
+}
+void Stack::print(){
+	Node*res;
+	res = s;
+	while (res != NULL){
+		cout << (*res).Val << endl;
+		res = (*res).next;
+	}
+	
+}
+
+int main(){
+	Stack s;
+	
+		s.push(20);
+		s.push(30);
+		s.push(40);
+		s.push(50);
+		cout << s.pop() << endl;
+		cout << s.pop() << endl;
+		s.push(60);
+		cout << s.pop() << endl;
+	
+	s.print();
+	system("pause");
+	return 0;
+}

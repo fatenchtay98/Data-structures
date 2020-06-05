@@ -1,0 +1,147 @@
+#include<iostream>
+using namespace std;
+
+class node {
+public:
+	int value;
+	node *next;
+};
+
+class set {
+public:
+	node *s;
+	set();
+	~set();
+	bool empty();
+	bool insert(int element);
+	void erase(int evalue);
+	void print();
+};
+
+set:: set() {
+	s = NULL;
+};
+
+set :: ~set() {
+	node *temp;
+	while (s!= NULL) {
+		temp = s;
+		s = (*s).next;
+		delete temp;
+	}
+}
+
+bool set::empty() {
+	if (s == NULL)
+		return true;
+	return false;
+}
+
+bool set::insert(int element) {
+	node *x = new node;
+	(*x).value = element;
+	(*x).next = NULL;
+	if (empty()) {
+		s = x;
+		return true;
+	}
+	if ((*s).value == element)
+		return false;
+	if ((*s).value > element) {
+		(*x).next = s;
+		s = x;
+		return true;
+	}
+	node *temp;
+	node *tempp;
+	temp = (*s).next;
+	tempp = s;
+	while (temp != NULL) {
+		if ((*temp).value == element)
+			return false;
+		if ((*temp).value < element) {
+			tempp = temp;
+			temp = (*temp).next;
+		}
+
+		else {
+			(*x).next = temp;
+			(*tempp).next = x;
+			return true;
+		}
+	}
+	(*tempp).next = x;
+	return true;
+}
+
+void set::erase(int evalue) {
+	if (s == NULL) {
+		cout << "error";
+	}
+	else {
+		node *tempp = s;
+		node *tempn = 0;
+		while (tempp != 0) {
+			if ((*tempp).value == evalue) {
+				break;
+			}
+			else {
+				tempn = tempp;
+				tempp = (*tempp).next;
+			}
+		}
+		if (tempp == 0) {
+			cout << "element "<< evalue <<"not found";
+		}
+		else {
+			if (s == tempp) {
+				s = (*s).next;
+			}
+			else {
+				(*tempn).next = (*tempp).next;
+			}
+			delete tempp;
+			cout << "element " << evalue << "is deleted."<<endl;
+		}
+	}
+}
+void set::print(){
+	node* temp = s;
+	int i = 1;
+	while (temp != NULL) {
+		cout << "Value #" << i << ": " << (*temp).value << ".\n";
+		temp = (*temp).next;
+		i++;
+	}
+}
+int main(){
+	set s;
+	int n, element, evalue;
+	cout << "Enter a number: 1 to insert, 2 to delete, 3 to display the set and -1 to end. " << endl;
+	cin >> n;
+	while (n != -1) {
+		if (n == 1) {
+			cout << "enter an element:" << endl;
+			cin >> element;
+			s.insert(element);
+		}
+		if (n == 2) {
+			cout << "enter the value to delete:";
+				cin >> evalue;
+				if (s.empty() == false)
+					s.erase(evalue);
+			else
+				cout << "set is empty" << endl;
+
+		} 
+		if (n == 3) {
+			s.print();
+		}
+		cout << "Enter a number: 1 to insert, 2 to delete, 3 to display the set and -1 to end. " << endl;
+		cin >> n;
+	}
+		
+
+	system("pause");
+	return 0;
+}
